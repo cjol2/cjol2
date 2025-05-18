@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disney Password Generator - Magical, Fun & Secure</title>
+  <meta name="description" content="Create fun, secure Disney-themed passwords with your favorite characters! Easy to remember, safe to use, and full of Disney magic. Great for fans of all ages.">
+  <meta name="keywords" content="Disney password generator, fun password, Disney fans, secure password, magical password, Disney characters, kid friendly password, strong memorable password">
+  <meta name="robots" content="index, follow">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
+
+    body {
+      font-family: 'Baloo 2', cursive;
+      background: linear-gradient(to right, #ffe4ec, #e8f0ff);
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    .container {
+      background: white;
+      border-radius: 25px;
+      padding: 2rem;
+      max-width: 550px;
+      width: 90%;
+      margin: 5vh auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      border: 3px dashed #ff85a2;
+    }
+
+    h1 {
+      color: #ff69b4;
+      font-size: 2rem;
+    }
+
+    #password {
+      font-size: 1.4rem;
+      margin: 1.5rem 0;
+      word-break: break-word;
+      color: #333;
+    }
+
+    button {
+      background-color: #ffd1dc;
+      color: #222;
+      border: 2px solid #ff85a2;
+      padding: 0.7rem 1.4rem;
+      font-size: 1rem;
+      font-family: 'Baloo 2', cursive;
+      border-radius: 12px;
+      cursor: pointer;
+      margin: 0.5rem;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background-color: #ffb6c1;
+      transform: scale(1.05);
+    }
+
+    .privacy-link {
+      margin-top: 1rem;
+      display: block;
+      font-size: 0.9rem;
+      color: #666;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.6rem;
+      }
+      #password {
+        font-size: 1.2rem;
+      }
+      button {
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Disney Password Generator</h1>
+    <p id="password">Click below to generate a magical password!</p>
+    <button onclick="generatePassword()">Generate Password</button>
+    <button onclick="copyPassword()">Copy to Clipboard</button>
+    <a class="privacy-link" href="privacy.html">Privacy Policy</a>
+  </div>
+  <script>
+    const characters = [
+      "Ariel", "Belle", "Elsa", "Anna", "Moana", "Tiana", "Rapunzel", "Mulan", "Jasmine", "SnowWhite",
+      "Cinderella", "Merida", "Aurora", "Vanellope", "Pocahontas", "Mickey", "Minnie", "Donald", "Goofy",
+      "Pluto", "Simba", "Nala", "Timon", "Pumbaa", "Aladdin", "Beast", "Hercules", "Megara", "Tarzan",
+      "Jane", "Lilo", "Stitch", "Buzz", "Woody", "Jessie", "Rex", "Forky", "Baymax", "Olaf", "Kristoff",
+      "Raya", "Sisu", "Scrooge", "Huey", "Dewey", "Louie", "Jiminy", "Pinocchio", "PeterPan", "TinkerBell"
+    ];
+
+    const funnyWords = [
+      "Happy", "Silly", "Wacky", "Zany", "Pink", "Twinkly", "Snazzy", "Glittery", "Funky", "Bubbly",
+      "Fluffy", "Goofy", "Dizzy", "Jolly", "Nutty", "Cheery", "Sassy", "Peppy", "Spunky", "Loopy",
+      "Cheeky", "Bouncy", "Perky", "Grumpy", "Snappy", "Zesty", "Giddy", "Clumsy", "Cranky", "Dorky",
+      "Quirky", "Zippy", "Nifty", "Zazzy", "Jazzy", "Brassy", "Fizzy", "Swirly", "Nerdy", "Merry",
+      "Witty", "Chirpy", "Chummy", "Peachy", "Crispy", "Minty", "Frosty", "Toasty", "Spicy", "Tangy",
+      "Tasty", "Meaty", "Beany", "Crunchy", "Gummy", "Yummy", "Zappy", "Kooky", "Groovy", "Rad",
+      "Coolio", "Banana", "Pinky", "Blushy", "Flamy", "Cloudy", "Skunky", "Spooky", "Zonky", "Neato",
+      "Bossy", "Glowy", "Breezy", "Frizzy", "Stinky", "Twisty", "Giggly", "Gloopy", "Blinky", "Reddy",
+      "Greeny", "Bluish", "Purpley", "Orangeish", "Silverish", "Goldy", "Misty", "Foggy", "Sunshiny",
+      "Moonlit", "Starry", "Dusty", "Inky", "Icy", "Fuzzy", "Patchy", "Soapy", "Jumpy"
+    ];
+
+    function generatePassword() {
+      const character = characters[Math.floor(Math.random() * characters.length)];
+      const word = funnyWords[Math.floor(Math.random() * funnyWords.length)];
+      const numberLength = Math.floor(Math.random() * 3) + 2;
+      const number = Math.floor(Math.random() * Math.pow(10, numberLength)).toString().padStart(numberLength, '0');
+      const symbols = ["!", "#", "$", "%", "&", "*"];
+      const symbol1 = symbols[Math.floor(Math.random() * symbols.length)];
+      const symbol2 = symbols[Math.floor(Math.random() * symbols.length)];
+      const password = word + character + number + symbol1 + symbol2;
+      document.getElementById("password").innerText = password;
+    }
+
+    function copyPassword() {
+      const passwordText = document.getElementById("password").innerText;
+      navigator.clipboard.writeText(passwordText).then(() => {
+        alert("Password copied to clipboard!");
+      });
+    }
+  </script>
+</body>
+</html>
